@@ -1,3 +1,4 @@
+from waitress import serve
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 import openai
@@ -55,4 +56,7 @@ def webhook():
         return str(e)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    if os.environ.get('FLASK_ENV') == 'production':
+        serve(app, host="0.0.0.0", port=5000)
+    else:
+        app.run(debug=True, port=5000)
