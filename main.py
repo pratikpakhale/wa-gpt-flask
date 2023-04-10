@@ -2,6 +2,9 @@ from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 import openai
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -45,7 +48,6 @@ def webhook():
         
         twiml = MessagingResponse()
         twiml.message(completion_text)
-        print(str(twiml))
         return str(twiml)
     
     except Exception as e:
